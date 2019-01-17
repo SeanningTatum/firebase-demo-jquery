@@ -33,6 +33,14 @@
     <!-- MAIN APPLICATION -->
     <div class="container pt-5">
 
+
+      <div class="row mb-5">
+        <div class="col-md-8 text-center mx-auto">
+          <h3 id="username"></h3>
+        </div>
+      </div>
+
+
       <div class="row">
 
         <!-- Create poll card -->
@@ -77,8 +85,9 @@
     crossorigin="anonymous"></script>
 
   <!-- TODO ADD FIREBASE SCRIPTS -->
-  <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -202,6 +211,18 @@
       // START
       // fetchPolls();
 
+      setTimeout( () => {
+        var user = firebase.auth().currentUser;
+        
+        if (user) {
+          $("#not-auth").hide();
+          $("main").show()
+          $("#username").html('Hello ' + user.displayName + '!');
+        }
+
+      }, 1000)
+
+
       fetchRealTimePolls();
 
       $("#submitPoll").click(function () {
@@ -218,8 +239,44 @@
         vote(pollId, pollVotes);
       })
 
+
       $("#sign-in").click(function () {
-        // TODO: LOGIN FUNCTIONALITY
+
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+          .then(function() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            console.log('IN HERE')
+
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              var token = result.credential.accessToken;
+              // The signed-in user info.
+              var user = result.user;
+
+              console.log(user)
+
+            }).catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // The email of the user's account used.
+              var email = error.email;
+              // The firebase.auth.AuthCredential type that was used.
+              var credential = error.credential;
+              // ...
+
+              console.log(errorCode)
+            });
+          })
+          .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+          });
+
+
+
+
       })
 
 
