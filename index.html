@@ -95,6 +95,9 @@
               >
                 Vote for this
               </button>
+              <button class="btn btn-sm btn-danger delete" id="${poll.id}">
+                Delete this
+              </button>
             </div>
           </div>
         `
@@ -113,6 +116,10 @@
       }
 
       function vote(pollId, pollVotes) {
+        // TODO
+      }
+
+      function deletePoll(pollId) {
         // TODO
       }
 
@@ -147,6 +154,12 @@
 
         vote(pollId, pollVotes);
 
+      })
+
+      $("body").on("click", ".delete", function () {
+        var pollId = $(this).attr("id");
+
+        deletePoll(pollId)
       })
 
 
