@@ -104,6 +104,7 @@
                 class="btn btn-sm btn-primary vote"
                 type="button"
                 id="${poll.id || ''}"
+                value="${poll.votes}"
               >
                 Vote for this
               </button>
@@ -133,6 +134,21 @@
 
       function fetchRealTimePolls() {
         // TODO: Fetch polls real time
+        db.collection("polls").onSnapshot(function (querySnapshot) {
+          $("#pollList").html('')
+          var polls = []
+
+          querySnapshot.forEach(function (doc) {
+            var poll = {
+              id: doc.id,
+              ...doc.data()
+            }
+            polls.push(createPollItem(poll))
+          });
+
+
+          $("#pollList").html(polls)
+        });
       }
 
       function createPoll(pollTitle) {
@@ -143,8 +159,17 @@
         });
       }
 
-      function vote() {
+      function vote(pollId, pollVotes) {
+
         // TODO
+        db.collection('polls')
+          .doc(pollId)
+          .set({
+            votes: parseInt(pollVotes) + 1
+          }, {
+            merge: true
+          })
+
       }
 
       /**
@@ -160,7 +185,8 @@
        **/
 
       // START
-      fetchPolls();
+      // fetchPolls();
+      fetchRealTimePolls();
 
       $("#submitPoll").click(function () {
         var pollTitle = $("#pollInput").val();
@@ -170,10 +196,10 @@
       })
 
       $("body").on("click", ".vote", function () {
-        // TODO: CREATE VOTE ON POLL
         var pollId = $(this).attr("id");
+        var pollVotes = $(this).val()
 
-        vote(pollId);
+        vote(pollId, pollVotes);
       })
 
 
