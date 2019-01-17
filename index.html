@@ -137,7 +137,10 @@
 
       function createPoll(pollTitle) {
         // TODO
-
+        db.collection('polls').add({
+          title: pollTitle,
+          votes: 0
+        });
       }
 
       function vote() {
