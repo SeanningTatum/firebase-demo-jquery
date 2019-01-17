@@ -108,11 +108,11 @@
         // TODO: Fetch polls real time
       }
 
-      function createPoll() {
+      function createPoll(pollTitle) {
         // TODO
       }
 
-      function vote() {
+      function vote(pollId, pollVotes) {
         // TODO
       }
 
@@ -132,7 +132,9 @@
       fetchPolls();
 
       $("#submitPoll").click(function () {
-        createPoll();
+        var pollTitle = $("#pollInput").val()
+
+        createPoll(pollTitle);
 
         // Reset input after submitting
         $("#pollInput").val('')
@@ -141,8 +143,9 @@
       $("body").on("click", ".vote", function () {
         // TODO: CREATE VOTE ON POLL
         var pollId = $(this).attr("id");
+        var pollVotes = $(this).val();
 
-        vote(pollId);
+        vote(pollId, pollVotes);
 
       })
 
