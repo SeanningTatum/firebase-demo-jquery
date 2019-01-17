@@ -18,8 +18,9 @@
 <body>
 
   <div id="not-auth" style="height: 100vh;">
-    <div class="container justify-content-center align-items-center d-flex">
+    <div class="container justify-content-center align-items-center d-flex flex-column" style="height: 100vh;">
       <h1>You are not authenticated</h1>
+      <button class="btn btn-primary btn-lg" id="sign-in">Sign in with google</button>
     </div>
   </div>
 
@@ -215,6 +216,10 @@
         var pollVotes = $(this).val()
 
         vote(pollId, pollVotes);
+      })
+
+      $("#sign-in").click(function () {
+        // TODO: LOGIN FUNCTIONALITY
       })
 
 
