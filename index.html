@@ -62,17 +62,29 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
 
-  <!-- TODO: ADD FIREBASE SCRIPTS -->
+  <!-- TODO ADD FIREBASE SCRIPTS -->
+  <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script>
 
   <script>
     $(document).ready(function () {
-
+      // TODO: SETUP FIREBASE
 
       /**
        *  Initialization
        **/
+      var config = {
+        apiKey: "AIzaSyCgQENz_pANGTHHvN-Gtc6wuvcdU81wM7s",
+        authDomain: "firestore-demo-b6906.firebaseapp.com",
+        databaseURL: "https://firestore-demo-b6906.firebaseio.com",
+        projectId: "firestore-demo-b6906",
+        storageBucket: "firestore-demo-b6906.appspot.com",
+        messagingSenderId: "693866427928"
+      };
 
-      // TODO: SETUP FIREBASE
+      firebase.initializeApp(config);
+
+      var db = firebase.firestore();
 
       /**
        *  Initialization End
@@ -102,14 +114,30 @@
 
       function fetchPolls() {
         // TODO: fetch polls from server!
+        db.collection("polls").get().then(function (querySnapshot) {
+          $("#pollList").html('')
+          var polls = []
+
+          querySnapshot.forEach(function (doc) {
+            var poll = {
+              id: doc.id,
+              ...doc.data()
+            }
+            polls.push(createPollItem(poll))
+          });
+
+
+          $("#pollList").html(polls)
+        });
       }
 
       function fetchRealTimePolls() {
         // TODO: Fetch polls real time
       }
 
-      function createPoll() {
+      function createPoll(pollTitle) {
         // TODO
+
       }
 
       function vote() {
@@ -132,9 +160,9 @@
       fetchPolls();
 
       $("#submitPoll").click(function () {
-        createPoll();
-
-        // Reset input after submitting
+        var pollTitle = $("#pollInput").val();
+        createPoll(pollTitle)
+        // Resetinput after submitting
         $("#pollInput").val('')
       })
 
@@ -143,7 +171,6 @@
         var pollId = $(this).attr("id");
 
         vote(pollId);
-
       })
 
 
