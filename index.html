@@ -13,42 +13,55 @@
   <title>Poll App!</title>
 </head>
 
+
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">Poll App</a>
-  </nav>
 
-  <!-- MAIN APPLICATION -->
-  <div class="container pt-5">
-
-    <div class="row">
-
-      <!-- Create poll card -->
-      <div class="card col-md-4" style="height: 200px;">
-        <div class="card-body">
-          <h5 class="card-title">Add a poll!</h5>
-          <input type="text" placeholder="Firestore, SQL, MongoDB etc." class="form-control mb-3" id="pollInput" />
-          <div class="text-right">
-            <button class="btn btn-primary" type="button" id="submitPoll">
-              Create Poll
-            </button>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Poll List -->
-      <div class="col-md-8 text-center">
-        <h3 class="mb-3">Poll List</h3>
-        <div class="container">
-          <div class="row" id="pollList">
-            <h5>No Polls available!</h5>
-          </div>
-        </div>
-      </div>
-
+  <div id="not-auth" style="height: 100vh;">
+    <div class="container justify-content-center align-items-center d-flex">
+      <h1>You are not authenticated</h1>
     </div>
+  </div>
+
+  <main style="height: 100vh; width: 100vw; display: none;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">Poll App</a>
+    </nav>
+
+    <!-- MAIN APPLICATION -->
+    <div class="container pt-5">
+
+      <div class="row">
+
+        <!-- Create poll card -->
+        <div class="card col-md-4" style="height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Add a poll!</h5>
+            <input type="text" placeholder="Firestore, SQL, MongoDB etc." class="form-control mb-3" id="pollInput" />
+            <div class="text-right">
+              <button class="btn btn-primary" type="button" id="submitPoll">
+                Create Poll
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Poll List -->
+        <div class="col-md-8 text-center">
+          <h3 class="mb-3">Poll List</h3>
+          <div class="container">
+            <div class="row" id="pollList">
+              <h5>No Polls available!</h5>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </main>
+
+
 
 
   </div>
@@ -68,6 +81,7 @@
 
   <script>
     $(document).ready(function () {
+
       // TODO: SETUP FIREBASE
 
       /**
@@ -186,6 +200,7 @@
 
       // START
       // fetchPolls();
+
       fetchRealTimePolls();
 
       $("#submitPoll").click(function () {
