@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+
+  <title>Poll App!</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Poll App</a>
+  </nav>
+
+  <!-- MAIN APPLICATION -->
+  <div class="container pt-5">
+
+    <div class="row">
+
+      <!-- Create poll card -->
+      <div class="card col-md-4" style="height: 200px;">
+        <div class="card-body">
+          <h5 class="card-title">Add a poll!</h5>
+          <input type="text" placeholder="Firestore, SQL, MongoDB etc." class="form-control mb-3" id="pollInput" />
+          <div class="text-right">
+            <button class="btn btn-primary" type="button" id="submitPoll">
+              Create Poll
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Poll List -->
+      <div class="col-md-8 text-center">
+        <h3 class="mb-3">Poll List</h3>
+        <div class="container">
+          <div class="row" id="pollList">
+            <h5>No Polls available!</h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+  <!-- TODO: ADD FIREBASE SCRIPTS -->
+
+  <script>
+    $(document).ready(function () {
+
+
+      /**
+       *  Initialization
+       **/
+
+      // TODO: SETUP FIREBASE
+
+      /**
+       *  Initialization End
+       **/
+
+
+      /**
+       *  Functions
+       **/
+      function createPollItem(poll) {
+        return `
+          <div class="col-md-4 card mb-3">
+            <div class="card-body">
+              <h5>${poll.title}</h5>
+              <p>Number of votes: ${poll.votes}</p>
+              <button
+                class="btn btn-sm btn-primary vote"
+                type="button"
+                id="${poll.id || ''}"
+              >
+                Vote for this
+              </button>
+            </div>
+          </div>
+        `
+      }
+
+      function fetchPolls() {
+        // TODO: fetch polls from server!
+      }
+
+      function fetchRealTimePolls() {
+        // TODO: Fetch polls real time
+      }
+
+      function createPoll() {
+        // TODO
+      }
+
+      function vote() {
+        // TODO
+      }
+
+      /**
+       *  Functions End
+       **/
+
+
+
+      /**
+       * 
+       * MAIN
+       * 
+       **/
+
+      // START
+      fetchPolls();
+
+      $("#submitPoll").click(function () {
+        createPoll();
+
+        // Reset input after submitting
+        $("#pollInput").val('')
+      })
+
+      $("body").on("click", ".vote", function () {
+        // TODO: CREATE VOTE ON POLL
+        var pollId = $(this).attr("id");
+
+        vote(pollId);
+
+      })
+
+
+
+
+    })
+  </script>
+
+</body>
+
+</html>
